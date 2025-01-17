@@ -63,7 +63,7 @@ const UploadComponent = () => {
         formData.append('file', file);
 
         try {
-            const response = await fetch('http://localhost:8000/upload/', {
+            const response = await fetch('https://web-production-6c2a.up.railway.app/upload/', {
                 method: 'POST',
                 body: formData,
             });

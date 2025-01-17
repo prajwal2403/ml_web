@@ -34,7 +34,7 @@ const Visualization = () => {
         setSelectedViz(type);
 
         try {
-            const response = await fetch(`http://localhost:8000/visualize/${type}/`);
+            const response = await fetch(`https://web-production-6c2a.up.railway.app/visualize/${type}/`);
 
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);

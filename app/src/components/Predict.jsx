@@ -14,7 +14,7 @@ const Predict = () => {
     const fetchPrediction = async () => {
         setLoading(true);
         try {
-            const response = await fetch('http://localhost:8000/lazy-predict/', {
+            const response = await fetch('https://web-production-6c2a.up.railway.app/lazy-predict/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

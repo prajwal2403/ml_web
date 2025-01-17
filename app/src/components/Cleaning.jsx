@@ -11,7 +11,7 @@ const Cleaning = () => {
         setError(null);
 
         try {
-            const response = await fetch('http://localhost:8000/clean-data/', {
+            const response = await fetch('https://web-production-6c2a.up.railway.app/clean-data/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

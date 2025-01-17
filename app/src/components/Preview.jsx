@@ -8,7 +8,7 @@ const Preview = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:8000/get-data-info/');
+                const response = await fetch('https://web-production-6c2a.up.railway.app/get-data-info/');
                 if (!response.ok) {
                     throw new Error('Failed to fetch data');
                 }

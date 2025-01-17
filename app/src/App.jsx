@@ -7,6 +7,7 @@ import Normalize from "./components/Normalize";
 import Recomendation from "./components/Recomendation";
 import Predict from "./components/Predict";
 import Visualization from "./components/Visualization";
+import DownloadSection from "./components/Download";
 
 const App = () => {
   const [currentSection, setCurrentSection] = useState('upload');
@@ -104,12 +105,8 @@ const App = () => {
         return <Predict />;
       case 'visualize':
         return <Visualization />;
-      case 'download-cleaned':
-        handleDatasetDownload();
-        return <Cleaning />;
-      case 'download-featured':
-        handleFeaturedDatasetDownload();
-        return <Normalize />;
+      case 'download':
+        return <DownloadSection onDownloadComplete={setCurrentSection} />
       default:
         return <UploadComponent />;
     }

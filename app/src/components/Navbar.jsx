@@ -13,7 +13,6 @@ import {
 
 const Navbar = ({ currentSection, setCurrentSection, isDownloading }) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [showDownloadOptions, setShowDownloadOptions] = useState(false);
 
     const navItems = [
         { id: 'upload', label: 'Upload', icon: Upload },
@@ -22,17 +21,17 @@ const Navbar = ({ currentSection, setCurrentSection, isDownloading }) => {
         { id: 'normalize', label: 'Data Normalizing', icon: LineChart },
         { id: 'model', label: 'Recommend Model', icon: Brain },
         { id: 'predict', label: 'Predict', icon: BarChart2 },
-        { id: 'visualize', label: 'Visualization', icon: LineChart }
+        { id: 'visualize', label: 'Visualization', icon: LineChart },
+        {
+            id: 'download',
+            label: 'Download Data',
+            icon: Download
+        }
     ];
 
     const handleNavClick = (id) => {
         setCurrentSection(id);
         setIsMobileMenuOpen(false);
-        setShowDownloadOptions(false);
-    };
-
-    const handleDownloadClick = () => {
-        setShowDownloadOptions(!showDownloadOptions);
     };
 
     return (
@@ -52,65 +51,24 @@ const Navbar = ({ currentSection, setCurrentSection, isDownloading }) => {
                             <button
                                 key={id}
                                 onClick={() => handleNavClick(id)}
+                                disabled={id === 'download' && isDownloading}
                                 className={`
                                     flex items-center px-3 py-2 rounded-md text-sm font-medium
                                     ${currentSection === id
                                         ? 'bg-blue-500 text-white'
-                                        : 'text-gray-600 hover:bg-gray-100'
+                                        : id === 'download'
+                                            ? isDownloading
+                                                ? 'bg-gray-400 text-white cursor-not-allowed'
+                                                : 'bg-green-500 text-white hover:bg-green-600'
+                                            : 'text-gray-600 hover:bg-gray-100'
                                     } 
                                     transition-colors duration-200
                                 `}
                             >
                                 <Icon className="w-4 h-4 mr-2" />
-                                {label}
+                                {isDownloading && id === 'download' ? 'Downloading...' : label}
                             </button>
                         ))}
-
-                        {/* Download dropdown */}
-                        <div className="relative">
-                            <button
-                                onClick={handleDownloadClick}
-                                disabled={isDownloading}
-                                className={`
-                                    flex items-center px-4 py-2 rounded-md text-sm font-medium ml-4
-                                    ${isDownloading
-                                        ? 'bg-gray-400 cursor-not-allowed'
-                                        : 'bg-green-500 hover:bg-green-600'
-                                    }
-                                    text-white transition-colors duration-200 shadow-sm
-                                `}
-                            >
-                                <Download className="w-4 h-4 mr-2" />
-                                {isDownloading ? 'Downloading...' : 'Download'}
-                            </button>
-
-                            {showDownloadOptions && (
-                                <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                                    <div className="py-1" role="menu">
-                                        <button
-                                            onClick={() => {
-                                                handleNavClick('download-cleaned');
-                                                setShowDownloadOptions(false);
-                                            }}
-                                            className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                            role="menuitem"
-                                        >
-                                            Download Cleaned Data
-                                        </button>
-                                        <button
-                                            onClick={() => {
-                                                handleNavClick('download-featured');
-                                                setShowDownloadOptions(false);
-                                            }}
-                                            className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                            role="menuitem"
-                                        >
-                                            Download Featured Data
-                                        </button>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
                     </div>
 
                     {/* Mobile menu button */}
@@ -136,53 +94,24 @@ const Navbar = ({ currentSection, setCurrentSection, isDownloading }) => {
                             <button
                                 key={id}
                                 onClick={() => handleNavClick(id)}
+                                disabled={id === 'download' && isDownloading}
                                 className={`
                                     flex items-center w-full px-3 py-2 rounded-md text-sm font-medium
                                     ${currentSection === id
                                         ? 'bg-blue-500 text-white'
-                                        : 'text-gray-600 hover:bg-gray-100'
+                                        : id === 'download'
+                                            ? isDownloading
+                                                ? 'bg-gray-400 text-white cursor-not-allowed'
+                                                : 'bg-green-500 text-white hover:bg-green-600'
+                                            : 'text-gray-600 hover:bg-gray-100'
                                     }
                                     transition-colors duration-200
                                 `}
                             >
                                 <Icon className="w-4 h-4 mr-2" />
-                                {label}
+                                {isDownloading && id === 'download' ? 'Downloading...' : label}
                             </button>
                         ))}
-
-                        {/* Mobile Download buttons */}
-                        <div className="mt-4 space-y-2">
-                            <button
-                                onClick={() => handleNavClick('download-cleaned')}
-                                disabled={isDownloading}
-                                className={`
-                                    flex items-center w-full px-3 py-2 rounded-md text-sm font-medium
-                                    ${isDownloading
-                                        ? 'bg-gray-400'
-                                        : 'bg-green-500 hover:bg-green-600'
-                                    }
-                                    text-white transition-colors duration-200
-                                `}
-                            >
-                                <Download className="w-4 h-4 mr-2" />
-                                Download Cleaned Data
-                            </button>
-                            <button
-                                onClick={() => handleNavClick('download-featured')}
-                                disabled={isDownloading}
-                                className={`
-                                    flex items-center w-full px-3 py-2 rounded-md text-sm font-medium
-                                    ${isDownloading
-                                        ? 'bg-gray-400'
-                                        : 'bg-green-500 hover:bg-green-600'
-                                    }
-                                    text-white transition-colors duration-200
-                                `}
-                            >
-                                <Download className="w-4 h-4 mr-2" />
-                                Download Featured Data
-                            </button>
-                        </div>
                     </div>
                 </div>
             )}

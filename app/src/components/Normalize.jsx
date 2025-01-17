@@ -11,7 +11,7 @@ const NormalizeComponent = () => {
         setError(null);
 
         try {
-            const response = await fetch('http://localhost:8000/feature-engineering/', {
+            const response = await fetch('https://web-production-6c2a.up.railway.app/feature-engineering/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
